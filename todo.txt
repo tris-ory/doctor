@@ -1,0 +1,17 @@
+BDD : 
+tables
+    * Médecins
+    * Patients
+    * Spécialités
+    * RDV
+
+spécialités :
+    + cardiologue
+    + généraliste
+    + neurologue
+
+Créer la base, 1 page de vue/ajout de spécialités
+                                      Médecins
+                                      Patients
+                                      RDV
+                                      
