@@ -2,8 +2,8 @@
 require_once '../config.php';
 require_once 'db.php';
 
-class Human {
-    // For get singleton instance
+class Human{
+    // DB Singleton
     protected $db;
     // DB Fields
     protected $id;
@@ -15,8 +15,6 @@ class Human {
     protected $phone;
     protected $alt_phone;
     protected $mail;
-    // Errors counter
-    protected $errors;
 
     public function __construct(){
         global $db_dsn, $db_pass, $db_user;
