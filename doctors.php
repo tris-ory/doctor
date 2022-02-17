@@ -1,19 +1,17 @@
 <?php
     $page_title = 'Index des médecins';
     $actif = 'Médecins';
-    
-    include 'includes/pageslist.php';
+
+    require 'config.php';
+    // include 'models/doctor.php';
 
     include 'modules/head.php';
     include 'modules/header.php';
-
 ?>
 <div class="container">
     <div class="row my-2">
-        <?php foreach ($pages_list as $k => $v): ?>
-            <div class="col-4 col-sm-8">
-                <a href="doctors/<?= $k ?>.php"><?= $v ?></a>
-            </div>
+        <?php foreach($pages as $page => $label): ?>
+            <p class="col-4"><a href="/views/<?= $page ?>_doctor.php"><?= $label ?></a></p>
         <?php endforeach; ?>
     </div>
 </div>
