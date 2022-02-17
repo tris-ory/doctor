@@ -10,7 +10,6 @@ include '../modules/header.php';
 
 $arr = $db->query('SELECT `lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, `phone2`, `mail`, `speciality`.`name` AS `spec` FROM `doctors` INNER JOIN  `speciality` ON `spec_id` = `speciality`.`id` ')
     ->fetchAll();
-var_dump($arr[0]);
 ?>
 
 <table class="table">

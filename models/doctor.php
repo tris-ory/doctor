@@ -1,12 +1,16 @@
 <?php
-require_once '../config.php';
+// require_once '../config.php';
 require_once 'human.php';
 // require_once '../helpers/selectors.php';
 
-class Doctor extends Human{
-    // DB Fields
-
+class Doctor extends Human {
     private $spec_id;
+
+    // Constructor
+    public function __construct(){
+        parent::__construct();
+    }
+    // setters and getters
     public function set_spec_id($id){
         // Get the specialities from database
         // $specs = select_specialities();
@@ -26,7 +30,9 @@ class Doctor extends Human{
     }
     // Other methods
     public function init_by_id($id){
-        $query = $db->prepare('SELECT * FROM `doctors` WHERE `id` = :id');
+        $query = $this->db
+            ->getPDO()
+            ->prepare('SELECT * FROM `doctors` WHERE `id` = :id');
         $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
 
@@ -39,7 +45,6 @@ class Doctor extends Human{
             parent::init($fields);
         }
     }
-
     public function push(){
         // Construction request
         $sql = 'INSERT INTO `doctors` (`lastname, `firstname`, `address`, `zipcode`, `city`, `phone`, ';

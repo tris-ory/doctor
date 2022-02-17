@@ -1,7 +1,10 @@
 <?php
 require_once '../config.php';
+require_once 'db.php';
 
-class Human{
+class Human {
+    // For get singleton instance
+    protected $db;
     // DB Fields
     protected $id;
     protected $lastname;
@@ -14,6 +17,11 @@ class Human{
     protected $mail;
     // Errors counter
     protected $errors;
+
+    public function __construct(){
+        global $db_dsn, $db_pass, $db_user;
+        $this->db = Db::getInstance($db_dsn, $db_pass, $db_user);
+    }
 
     // Setters
     public function set_id($id){
