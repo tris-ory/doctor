@@ -47,18 +47,18 @@ class Doctor extends Human {
     }
     public function push(){
         // Construction request
-        $sql = 'INSERT INTO `doctors` (`lastname, `firstname`, `address`, `zipcode`, `city`, `phone`, ';
+        $sql = 'INSERT INTO `doctors` (`lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, ';
         $values = 'VALUES (:lastname, :firstname, :address, , :zipcode, :city, ';
         // If the second phone is entered, add it into request and waited values
         if (!(is_null($this->alt_phone))){
-            $sql .= 'phone2, ';
+            $sql .= '`phone2`, ';
             $values .= ':alt_phone, ';
         }
-        $sql .= 'mail, spec_id) ';
+        $sql .= '`mail`, `spec_id`) ';
         $values .= ':mail, :spec_id)';
 
         // $qry is a PDOStatement
-        $qry = $db->prepare($sql.$values);
+        $qry = $this->pdo->db->prepare($sql.$values);
         // We bind all the values to the request
         $qry->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
         $qry->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
@@ -73,5 +73,6 @@ class Doctor extends Human {
         // PDOStatement::execute() return a boolean, so we return the result
         return $qry->execute();
     }
+
 
 }

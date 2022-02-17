@@ -4,7 +4,7 @@ require_once 'db.php';
 
 class Human{
     // DB Singleton
-    protected $db;
+    protected $pdo;
     // DB Fields
     protected $id;
     protected $lastname;
@@ -18,7 +18,7 @@ class Human{
 
     public function __construct(){
         global $db_dsn, $db_pass, $db_user;
-        $this->db = Db::getInstance($db_dsn, $db_pass, $db_user);
+        $this->pdo = Db::getInstance($db_dsn, $db_pass, $db_user);
     }
 
     // Setters
