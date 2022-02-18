@@ -22,7 +22,7 @@ class Human{
     }
 
     // Setters
-    public function set_id($id){
+    public function setId($id){
         $result = false;
         if(filter_var($id, FILTER_VALIDATE_INT)){
             $this->id = $id;
@@ -32,67 +32,91 @@ class Human{
         }
         return $result;
     }
-    public function set_lastname($str){
+    public function setLastname($str){
         if(preg_match(RX_NAME, $str)){
+            $result = true;
             $this->lastname = $str;
         } else{
+            $result = false;
             $this->lastname = NULL;
         }
+        return $result;
     }
-    public function set_firstname($str){
+    public function setFirstname($str){
         if(preg_match(RX_NAME, $str)){
+            $result = true;
             $this->firstname = $str;
         } else{
+            $result = false;
             $this->firstname = NULL;
         }
+        return $result;
     }
-    public function set_address($str){
+    public function setAddress($str){
         if(preg_match(RX_ADRESS, $str)){
+            $result = true;
             $this->address = $str;
         } else {
+            $result = false;
             $this->address = NULL;
         }
+        return $result;
     }
-    public function set_zipcode($str){
+    public function setZipcode($str){
         if(preg_match(RX_ZIP, $str)){
+            $result = true;
             $this->zipcode = $str;
         } else {
+            $result = false;
             $this->zipcode = NULL;
         }
+        return $result;
     }
-    public function set_city($str){
+    public function setCity($str){
         if(preg_match(RX_NAME, $str)){
+            $result = true;
             $this->city = $str;
         } else {
+            $result = false;
             $this->city = NULL;
         }
+        return $result;
     }
-    public function set_phone($str){
+    public function setPhone($str){
         if(preg_match(RX_PHONE, $str)){
             $this->phone = $str;
+            $result = true;
         } else {
             $this->phone = NULL;
+            $result = false;
         }
+        return $result;
     }
-    public function set_alt_phone($str){
+    public function setAltPhone($str){
         if(preg_match(RX_PHONE, $str)){
             $this->alt_phone = $str;
+            $result = true;
         } else {
             $this->alt_phone = NULL;
+            $result = false;
         }
+        return $result;
     }
-    public function set_mail($str){
+    public function setMail($str){
         if(filter_var($str, FILTER_VALIDATE_EMAIL) && strlen($str) <= 50 ){
             $this->mail = $str;
+            $result = true;
         } else {
             $this->mail = NULL;
+            $result = false;
         }
+        return $result;
     }
     // Getters
-    public function get_id(){
+    public function getId(){
         return $this->id;
     }
-    public function get_lastname(){
+    public function getLastname(){
         $result = false;
         // If no error
         if(!($this->lastname != NULL)){
@@ -100,7 +124,7 @@ class Human{
         }
         return $result;
     }
-    public function get_firstname(){
+    public function getFirstname(){
         $result = false;
         // If no error
         if($this->firstname != NULL){
@@ -108,7 +132,7 @@ class Human{
         }
         return $result;
     }
-    public function get_address(){
+    public function getAddress(){
         $result = false;
         // If no error
         if($this->address != NULL){
@@ -116,7 +140,7 @@ class Human{
         }
         return $result;
     }
-    public function get_zipcode(){
+    public function getZipcode(){
         $result = false;
         // If no error
         if($this->zipcode != NULL){
@@ -124,7 +148,7 @@ class Human{
         }
         return $result;
     }
-    public function get_city(){
+    public function getCity(){
         $result = false;
         // If no error
         if($this->city != NULL){
@@ -132,7 +156,7 @@ class Human{
         }
         return $result;
     }
-    public function get_phone(){
+    public function getPhone(){
         $result = false;
         // If no error
         if($this->phone != NULL){
@@ -140,7 +164,7 @@ class Human{
         }
         return $result;
     }
-    public function get_alt_phone(){
+    public function getAltPhone(){
         $result = false;
         // If no error
         if($this->alt_phone != NULL){
@@ -148,7 +172,7 @@ class Human{
         }
         return $result;
     }
-    public function get_mail(){
+    public function getMail(){
         $result = false;
         // If no error
         if($this->mail != NULL){
@@ -158,14 +182,14 @@ class Human{
     }
 
     protected function init(array $values){
-        $this->set_id($values['id']);
-        $this->set_lastname($values['lastname']);
-        $this->set_firstname($values['firstname']);
-        $this->set_address($values['address']);
-        $this->set_zipcode($values['zipcode']);
-        $this->set_city($values['city']);
-        $this->set_phone($values['phone']);
-        $this->set_alt_phone($values['phone2']);
-        $this->set_mail($values['mail']);
+        $this->setId($values['id']);
+        $this->setLastname($values['lastname']);
+        $this->setFirstname($values['firstname']);
+        $this->setAddress($values['address']);
+        $this->setZipcode($values['zipcode']);
+        $this->setCity($values['city']);
+        $this->setPhone($values['phone']);
+        $this->setAltPhone($values['phone2']);
+        $this->setMail($values['mail']);
     }
 }

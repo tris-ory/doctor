@@ -7,7 +7,9 @@ class Speciality {
 
     public function __construct(){
         global $db_dsn, $db_pass, $db_user;
-        $this->pdo = Db::getInstance($db_dsn, $db_pass, $db_user);
+        if(is_null($this->pdo)){
+            $this->pdo = Db::getInstance($db_dsn, $db_pass, $db_user);
+        }
     }
 
     /**
@@ -51,12 +53,13 @@ class Speciality {
      * return true if insertion is OK, false else
      */
     public function insertNew($name){
-        $result = false;
-        // Try to
+        // verify if name is OK and not exist
         if(preg_match(RX_NAME, $name) && !$this->getIdByName($name)){
             $stmt = $this->pdo->db->prepare('INSERT INTO `speciality`(`name`) VALUES(:name)');
             $stmt->bindValue(':name', $name, PDO::PARAM_STR);
             $result = $stmt->execute();
+        } else {
+            $result = false;
         }
         return $result;
     }

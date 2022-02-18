@@ -1,7 +1,6 @@
 <?php
-// require_once '../config.php';
+require_once '../config.php';
 require_once 'human.php';
-// require_once '../helpers/selectors.php';
 
 class Doctor extends Human {
     private $spec_id;
@@ -11,16 +10,19 @@ class Doctor extends Human {
         parent::__construct();
     }
     // setters and getters
-    public function set_spec_id($id){
-        // Get the specialities from database
-        // $specs = select_specialities();
-        // if(in_array($id, $specs)){
+    public function setSpecId($id){
+        $spec = new Speciality();
+        $result = false;
+        if($spec->getNameById($id)){
             $this->spec_id = $id;
-        // } else {
-            // $this->spec_id = NULL;
-        // }
+            $result = true;
+        } else {
+            $this->spec_id = NULL;
+            $result = false;
+        }
+        return $result;
     }
-    public function get_spec_id(){
+    public function getSpecId(){
         $result = false;
         // If no error
         if($this->spec_id != NULL){
@@ -29,7 +31,7 @@ class Doctor extends Human {
         return $result;
     }
     // Other methods
-    public function init_by_id($id){
+    public function getById($id){
         $query = $this->db
             ->getPDO()
             ->prepare('SELECT * FROM `doctors` WHERE `id` = :id');
@@ -41,38 +43,32 @@ class Doctor extends Human {
     }
     public function init($fields){
         if (is_array($fields)){
-            $this->set_spec_id($fields['spec_id']);
+            $this->setSpecId($fields['spec_id']);
             parent::init($fields);
         }
     }
-    public function push(){
+    public function insert(){
         // Construction request
-        $sql = 'INSERT INTO `doctors` (`lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, ';
-        $values = 'VALUES (:lastname, :firstname, :address, , :zipcode, :city, ';
-        // If the second phone is entered, add it into request and waited values
-        if (!(is_null($this->alt_phone))){
-            $sql .= '`phone2`, ';
-            $values .= ':alt_phone, ';
+        if(is_null($this->alt_phone)){
+            $sql = 'INSERT INTO `doctors` (`lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, `mail`, `spec_id`) VALUES (:lastname, :firstname, :address, :zipcode, :city, :phone, :mail, :spec_id)';
+        } else {
+            $sql = 'INSERT INTO `doctors` (`lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, `phone2`, `mail`, `spec_id`) VALUES (:lastname, :firstname, :address, :zipcode, :city, :phone, :phone2, :mail, :spec_id)';
         }
-        $sql .= '`mail`, `spec_id`) ';
-        $values .= ':mail, :spec_id)';
 
-        // $qry is a PDOStatement
-        $qry = $this->pdo->db->prepare($sql.$values);
+        // $stmt is a PDOStatement
+        $stmt = $this->pdo->db->prepare($sql);
         // We bind all the values to the request
-        $qry->bindValue(':lastname', $this->lastname, PDO::PARAM_STR);
-        $qry->bindValue(':firstname', $this->firstname, PDO::PARAM_STR);
-        $qry->bindValue(':address', $this->address, PDO::PARAM_STR);
-        $qry->bindValue(':zipcode', $this->zipcode, PDO::PARAM_STR);
-        $qry->bindValue(':city', $this->city, PDO::PARAM_STR);
+        $stmt->bindValue(':lastname', $this->lastname);
+        $stmt->bindValue(':firstname', $this->firstname);
+        $stmt->bindValue(':address', $this->address);
+        $stmt->bindValue(':zipcode', $this->zipcode);
+        $stmt->bindValue(':city', $this->city);
+        $stmt->bindValue(':phone', $this->phone);
         if (!is_null($this->alt_phone)){
-            $qry->bindValue(':alt_phone', $this->alt_phone, PDO::PARAM_STR);
+            $stmt->bindValue(':phone2', $this->alt_phone);
         }
-        $qry->bindValue(':mail', $this->mail, PDO::PARAM_STR);
-        $qry->bindValue(':spec_id', $this->spec_id, PDO::PARAM_INT);
-        // PDOStatement::execute() return a boolean, so we return the result
-        return $qry->execute();
+        $stmt->bindValue(':mail', $this->mail);
+        $stmt->bindValue(':spec_id', $this->spec_id);
+        return $stmt->execute();
     }
-
-
 }

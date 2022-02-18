@@ -1,8 +1,8 @@
 <?php
-$page_title = 'Index des médecins';
-$actif = 'Médecins';
+$page_title = 'Index des spécialités';
+$actif = 'Spécialités';
 
-require 'config.php';
+require_once 'config.php';
 
 include 'modules/head.php';
 include 'modules/header.php';
@@ -10,7 +10,7 @@ include 'modules/header.php';
 <div class="container">
     <div class="row my-2">
         <?php foreach($pages as $page => $label): ?>
-            <p class="col-4"><a href="/views/<?= $page ?>_doctor.php"><?= $label ?></a></p>
+            <p class="col-4"><a href="/views/<?= $page ?>_speciality.php"><?= $label ?></a></p>
         <?php endforeach; ?>
     </div>
 </div>

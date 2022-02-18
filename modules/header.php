@@ -2,7 +2,8 @@
     $items=['Index' => '/', 
         'Médecins' => '/doctors.php', 
         'Patients' => '/patients.php',
-        'Rendez-vous' => '/rendezvous.php'];
+        'Rendez-vous' => '/rendezvous.php',
+        'Spécialités' => '/speciality.php'];
     // Attention à définir une valeur pour le lien actif
 ?>
 <header>
