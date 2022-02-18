@@ -8,6 +8,7 @@ require_once '../models/speciality.php';
 
 require_once '../modules/head.php';
 require_once '../modules/header.php';
+
 $s = new Speciality();
 $specs = $s->getAll();
 unset($s);

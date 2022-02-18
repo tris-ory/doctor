@@ -71,4 +71,33 @@ class Doctor extends Human {
         $stmt->bindValue(':spec_id', $this->spec_id);
         return $stmt->execute();
     }
+    public function getBySpecId($id){
+        $sql = 'SELECT `firstname`, `lastname` FROM `speciality` AS `spec` INNER JOIN `doctors` ON `spec`.`id` = `spec_id` WHERE `spec`.`id` = :id';
+        $stmt = $this->pdo->db->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getBySpecName($name){
+        $sql = 'SELECT `firstname`, `lastname` FROM `speciality` AS `spec` INNER JOIN `doctors` ON `spec`.`id` = `spec_id` WHERE `spec`.`name` = :name';
+        $stmt = $this->pdo->db->prepare($sql);
+        $stmt->bindValue(':name', $name);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByName($lastname, $firstname=NULL){
+        $sql = 'SELECT `lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, `phone2`, `mail`, `spec_id` FROM `doctors` WHERE `lastname` = :lastname';
+        if(!is_null($firstname)){
+             $sql .= 'AND `firstname` = :firstname';
+        }
+        $stmt = $this->pdo->db->prepare($sql);
+        $stmt->bindValue(':lastname', $lastname);
+        if(!is_null($firstname)){
+            $stmt->bindValue(':firstname', $firstname);
+        }
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
