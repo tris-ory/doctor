@@ -24,12 +24,15 @@ CREATE TABLE IF NOT EXISTS `doctors` (
   PRIMARY KEY (`id`),
   KEY `fk_doctor_speciality_id` (`spec_id`),
   CONSTRAINT `fk_doctor_speciality_id` FOREIGN KEY (`spec_id`) REFERENCES `speciality` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM `doctors`;
 /*!40000 ALTER TABLE `doctors` DISABLE KEYS */;
 INSERT INTO `doctors` (`id`, `lastname`, `firstname`, `address`, `zipcode`, `city`, `phone`, `phone2`, `mail`, `spec_id`, `created_at`, `updated_at`) VALUES
-	(1, 'bon', 'jean', '4 rue coincoin', '99000', 'canardville', '0123456789', NULL, 'truc@truc.com', 2, '2022-02-17 15:27:54', '2022-02-17 15:27:54');
+	(1, 'bon', 'jean', '4 rue coincoin', '99000', 'canardville', '0123456789', NULL, 'truc@truc.com', 2, '2022-02-17 15:27:54', '2022-02-17 15:27:54'),
+	(2, 'nom', 'prenom', 'adresse', '00000', 'ville', '0123456789', NULL, 'mail@mail.com', 4, '2022-02-18 13:53:48', '2022-02-18 13:53:48'),
+	(3, 'fzfjdfle', 'ekozfjf', '12 rue slip', '01234', 'kangourou', '0123456789', '0123243590', 'fkmzejpkf@fkefzaef.com', 3, '2022-02-18 13:55:52', '2022-02-18 13:55:52'),
+	(4, 'azerty', 'prénom', 'eflae', '01242', 'azdaefazr', '0987654321', NULL, 'jaqdfhaidh@fdajzerazd.com', 3, '2022-02-18 14:04:23', '2022-02-18 14:04:23');
 /*!40000 ALTER TABLE `doctors` ENABLE KEYS */;
 
 CREATE TABLE IF NOT EXISTS `patients` (
@@ -89,18 +92,19 @@ DELETE FROM `rendezvous`;
 CREATE TABLE IF NOT EXISTS `speciality` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `consult_rate` float NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 DELETE FROM `speciality`;
 /*!40000 ALTER TABLE `speciality` DISABLE KEYS */;
-INSERT INTO `speciality` (`id`, `name`, `consult_rate`, `created_at`, `updated_at`) VALUES
-	(1, 'cardiologue', 2.5, '2022-02-15 11:43:20', '2022-02-15 11:43:20'),
-	(2, 'généraliste', 1, '2022-02-15 11:54:59', '2022-02-15 11:54:59'),
-	(3, 'dentiste', 1.75, '2022-02-15 11:55:34', '2022-02-15 11:55:34');
+INSERT INTO `speciality` (`id`, `name`, `created_at`, `updated_at`) VALUES
+	(1, 'cardiologue', '2022-02-15 11:43:20', '2022-02-15 11:43:20'),
+	(2, 'généraliste', '2022-02-15 11:54:59', '2022-02-15 11:54:59'),
+	(3, 'dentiste', '2022-02-15 11:55:34', '2022-02-15 11:55:34'),
+	(4, 'proctologue', '2022-02-18 11:24:58', '2022-02-18 11:24:58'),
+	(5, 'Urologie', '2022-02-18 14:54:08', '2022-02-18 14:54:08');
 /*!40000 ALTER TABLE `speciality` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
